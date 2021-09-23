@@ -1,18 +1,29 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {Movies} from "../models";
+import axios from "axios";
 
 
-const initialState = {
-    isFetching: false,
+const initialState: Movies = {
+    isFetching: true,
     error:  '',
     movies: [],
-    start: null,
-    end: null
+    genres: []
 };
 
-export const getMovies = createAsyncThunk(
-    'movies/getMovies',
+export const getMoviesPopular = createAsyncThunk(
+    'movies/getMoviesPopular',
     async (arg: void, thunkAPI) => {
-        const res = await fetch("")
+        const res = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=e90e5900c785cc9c251518d316e79f31")
+        console.log(res)
+        if (res.status === 200) return res
+        return thunkAPI.rejectWithValue(res)
+    }
+)
+
+export const getGenres = createAsyncThunk(
+    'movies/getGenres',
+    async (arg: void, thunkAPI) => {
+        const res = await axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=e90e5900c785cc9c251518d316e79f31")
         if (res.status === 200) return res
         return thunkAPI.rejectWithValue(res)
     }
@@ -24,18 +35,27 @@ export const moviesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        [getMovies.fulfilled.type]: (state, {payload}) => {
+        [getMoviesPopular.fulfilled.type]: (state, {payload}) => {
             state.isFetching = false
-            state.movies = payload.data
-            state.start = payload.start
-            state.end = payload.end
+            state.movies = payload.data.results
         },
-        [getMovies.rejected.type]: (state) => {
+        [getMoviesPopular.rejected.type]: (state) => {
             state.isFetching = true
             state.error = "Error "
         },
-        [getMovies.pending.type]: (state) => {
+        [getMoviesPopular.pending.type]: (state) => {
             state.isFetching = true
+        },
+        [getGenres.pending.type]: (state) =>{
+          state.isFetching = true
+        },
+        [getGenres.fulfilled.type]: (state, {payload}) => {
+            state.isFetching = false
+            state.genres = payload.data.genres
+        },
+        [getGenres.rejected.type]: (state) => {
+            state.isFetching = true
+            state.error = "Error "
         }
     }
 })

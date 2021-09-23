@@ -1,0 +1,10 @@
+.category{
+  max-width: 1440px;
+  margin: 0 auto;
+  .category--list{
+    display: flex;
+    .category--list--item{
+      padding: 5px;
+    }
+  }
+}
