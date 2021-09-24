@@ -1,6 +1,6 @@
-type genre = {
-    id: string
-    name: string
+export type genre = {
+    id: number
+    name?: string
 }
 
 export type movie = {

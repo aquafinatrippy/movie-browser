@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {Movies} from "../models";
+import {genre, Movies} from "../models";
 import axios from "axios";
 
 
@@ -10,11 +10,19 @@ const initialState: Movies = {
     genres: []
 };
 
+export const getMoviesByGenre = createAsyncThunk(
+    'movies/getMoviesByGenre',
+    async ({id}: genre, thunkAPI) => {
+        const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=e90e5900c785cc9c251518d316e79f31&with_genres=${id}`)
+        if(res.status === 200) return res
+        return thunkAPI.rejectWithValue(res)
+    }
+)
+
 export const getMoviesPopular = createAsyncThunk(
     'movies/getMoviesPopular',
     async (arg: void, thunkAPI) => {
         const res = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=e90e5900c785cc9c251518d316e79f31")
-        console.log(res)
         if (res.status === 200) return res
         return thunkAPI.rejectWithValue(res)
     }
@@ -56,6 +64,16 @@ export const moviesSlice = createSlice({
         [getGenres.rejected.type]: (state) => {
             state.isFetching = true
             state.error = "Error "
+        },
+        [getMoviesByGenre.pending.type]: (state) => {
+            state.isFetching = true
+        },
+        [getMoviesByGenre.rejected.type]: (state) => {
+            state.error = "error occured"
+        },
+        [getMoviesByGenre.fulfilled.type]: (state, {payload}) => {
+            state.isFetching = false
+            state.movies = payload.data.results
         }
     }
 })

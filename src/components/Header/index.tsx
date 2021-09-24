@@ -8,10 +8,16 @@ export const Header: FC = () => {
         <div className="header">
             <div className="header--top">
                 <div className="header--title">
-                    Movie browser
+                    <h1>
+                        Movie browser
+                    </h1>
                 </div>
                 <div className="header--search">
-                    search bar comes here
+                    <form >
+                        <input type="text" placeholder="Search.." name="search" />
+                            <button type="submit">x</button>
+
+                    </form>
                 </div>
             </div>
             <Category/>
