@@ -7,13 +7,23 @@ const initialState: Movies = {
     isFetching: true,
     error:  '',
     movies: [],
-    genres: []
+    genres: [],
+    movieDetails: {}
 };
 
 export const getMoviesByGenre = createAsyncThunk(
     'movies/getMoviesByGenre',
     async ({id}: genre, thunkAPI) => {
         const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=e90e5900c785cc9c251518d316e79f31&with_genres=${id}`)
+        if(res.status === 200) return res
+        return thunkAPI.rejectWithValue(res)
+    }
+)
+
+export const getMovieDetails = createAsyncThunk(
+    'movies/getMovieDetails',
+    async ({id}: genre, thunkAPI) => {
+        const res = await axios.get(`http://api.themoviedb.org/3/movie/${id}?api_key=e90e5900c785cc9c251518d316e79f31&append_to_response=videos`)
         if(res.status === 200) return res
         return thunkAPI.rejectWithValue(res)
     }
@@ -74,6 +84,13 @@ export const moviesSlice = createSlice({
         [getMoviesByGenre.fulfilled.type]: (state, {payload}) => {
             state.isFetching = false
             state.movies = payload.data.results
+        },
+        [getMovieDetails.rejected.type]: (state) => {
+            state.error = "error occured"
+        },
+        [getMovieDetails.fulfilled.type]: (state, {payload}) => {
+            state.isFetching = false
+            state.movieDetails = payload.data
         }
     }
 })

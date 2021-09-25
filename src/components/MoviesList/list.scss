@@ -3,7 +3,10 @@
 
   .movies--active{
     width: 100%;
-    grid-column: 1/7;
+    //grid-column: 1/7;
+    //display: none;
+    grid-column: 1 / 7;
+    grid-row: 1;
   }
 
   .movies--container {
@@ -16,10 +19,13 @@
       padding-top: 30px;
       padding-bottom: 30px;
       gap: 10px;
+      grid-auto-flow: row;
     }
+
 
     .movies--item{
       margin: auto;
+
     }
   }
 }

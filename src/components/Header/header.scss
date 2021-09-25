@@ -10,4 +10,14 @@
   }
   .header--title{
   }
+  .header--search{
+    input{
+      padding: 5px;
+      background-color:#748ffc;
+      font-size: 16px;
+      &::placeholder{
+        color: #fff;
+      }
+    }
+  }
 }

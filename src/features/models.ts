@@ -2,6 +2,20 @@ export type genre = {
     id: number
     name?: string
 }
+type movieDetails = {
+    id?: number | null,
+    vote_average?: number
+    title?: string,
+    genres?: genre[],
+    overview?: string,
+    poster_path?: string,
+    videos?: {
+        results: [
+            id: string,
+            key: string
+        ]
+    }
+}
 
 export type movie = {
     poster_path: string,
@@ -24,5 +38,6 @@ export interface Movies {
     isFetching: boolean,
     error:  string | null,
     movies: movie[],
-    genres: genre[]
+    genres: genre[],
+    movieDetails: movieDetails
 }
