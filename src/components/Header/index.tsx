@@ -1,6 +1,7 @@
 import React, {FC} from 'react'
 import {Category} from "../Category";
 import './header.scss'
+import { FaSistrix } from "react-icons/fa";
 
 
 export const Header: FC = () => {
@@ -13,11 +14,11 @@ export const Header: FC = () => {
                     </h1>
                 </div>
                 <div className="header--search">
-                    <form >
+                    <div className="header--search-container">
                         <input type="text" placeholder="Search.." name="search" />
-                            <button type="submit">x</button>
+                            <button type="submit"><FaSistrix/></button>
 
-                    </form>
+                    </div>
                 </div>
             </div>
             <Category/>

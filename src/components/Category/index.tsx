@@ -35,7 +35,7 @@ export const Category: FC = () => {
                     <div className="dropdown-content">
                         {
                             genres?.slice(4).map(genre => (
-                                    <a key={genre.id} onClick={changeCategory(genre.id)} href="#">{genre.name}</a>
+                                    <a key={genre.id} onClick={changeCategory(genre.id)} href="/#">{genre.name}</a>
                             ))
                         }
                     </div>

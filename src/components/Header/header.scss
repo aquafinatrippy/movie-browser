@@ -7,14 +7,32 @@
     max-width: 1440px;
     margin: 0 auto;
     align-items: center;
+    width: 80%;
   }
   .header--title{
   }
   .header--search{
+    .header--search-container{
+      display: flex;
+    }
+    button{
+      height: 29px;
+      background-color: #748ffc;
+      border: none;
+      cursor: pointer;
+    }
+    svg{
+      color: white;
+      font-size: 16px;
+    }
     input{
       padding: 5px;
       background-color:#748ffc;
       font-size: 16px;
+      border: none;
+      &:focus{
+        outline: none !important;
+      }
       &::placeholder{
         color: #fff;
       }

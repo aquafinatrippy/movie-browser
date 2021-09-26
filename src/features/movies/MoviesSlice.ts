@@ -70,6 +70,7 @@ export const moviesSlice = createSlice({
         [getGenres.fulfilled.type]: (state, {payload}) => {
             state.isFetching = false
             state.genres = payload.data.genres
+            state.error = ''
         },
         [getGenres.rejected.type]: (state) => {
             state.isFetching = true
