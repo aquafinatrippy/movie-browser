@@ -9,7 +9,6 @@ type RatingProps = {
 }
 
 export const Rating: FC<RatingProps> = ({rating}) => {
-    console.log(rating)
 
     const calculateStar=(RatingNr: number, indexNr: number) =>{
         if(RatingNr){
@@ -33,7 +32,7 @@ export const Rating: FC<RatingProps> = ({rating}) => {
     return(<div>
         <div className="star-rating">
             {[...Array(5)].map((nr, index) =>(
-                <div key={nr} className="star-svg">
+                <div key={index} className="star-svg">
                     {calculateStar(parseInt(rating as string), index )}
                 </div>)
             )}

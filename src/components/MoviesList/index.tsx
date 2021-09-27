@@ -38,10 +38,10 @@ export const MoviesList: FC = () => {
                         loading ? (
                             <Loading/>
                         ) : (
-                            movies?.map(movie =>
+                            movies?.map((movie, index) =>
                                 (
                                     <>
-                                        <div className="movies--item" key={movie.id}
+                                        <div className="movies--item" key={index}
                                              onClick={() => handleActivating(movie.id)}>
                                             <img alt={movie.title}
                                                  src={`https://image.tmdb.org/t/p/w200/${movie?.poster_path}`}/>

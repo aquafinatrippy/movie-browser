@@ -31,7 +31,7 @@ export const MovieDetails: FC = () => {
                             <p>{movieDetails?.overview}</p>
                             <div className="movie--genres">
                                 {movieDetails?.genres?.map(genre => (
-                                    <span key={genre.id}>#{genre.name}</span>
+                                    <span key={genre.id}> #{genre.name}</span>
                                 ))}
                             </div>
                         </div>
