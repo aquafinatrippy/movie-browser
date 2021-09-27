@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from "react";
+import React, {FC, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/store";
 import './list.scss'
@@ -12,7 +12,9 @@ const scrollToRef = (ref: any) => window.scrollTo(0, ref.current.offsetTop)
 export const MoviesList: FC = () => {
     const dispatch = useDispatch()
     const myRef = useRef(null)
-    const [showInfo, setShowInfo] = useState(false)
+    const info = useSelector((state: RootState) => {
+        return state.movies.detailsDisplay
+    })
     const movies = useSelector((state: RootState) => {
         return state.movies.movies || []
     })
@@ -21,7 +23,6 @@ export const MoviesList: FC = () => {
     })
 
     const handleActivating = (nr: number) => {
-        setShowInfo(true)
         dispatch(getMovieDetails({id: nr}))
         scrollToRef(myRef)
     }
@@ -29,7 +30,7 @@ export const MoviesList: FC = () => {
 
     return (
         <div className="movies" ref={myRef}>
-            {showInfo ? <MovieDetails/>
+            {info ? <MovieDetails/>
                 : (<></>)}
             <div className="movies--container">
                 <div className="movies--list">

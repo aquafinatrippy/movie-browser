@@ -14,19 +14,17 @@ export const Rating: FC<RatingProps> = ({rating}) => {
     const calculateStar=(RatingNr: number, indexNr: number) =>{
         if(RatingNr){
             const fixedIndex = parseInt(indexNr.toFixed(1)) - 0.1
-            const correctIndex = parseInt(indexNr.toFixed(1)) + 0.5 -1.0
-            if(correctIndex === rating){
+            const correctIndex = parseInt(indexNr.toFixed(1)) + 0.5
+            const calculatedRating = RatingNr / 2
+            if(correctIndex === calculatedRating){
                 return <FaStarHalf/>
             }
-            if(indexNr < RatingNr){
+            if(indexNr < calculatedRating){
                 return <FaStar/>
             }
-
-            if (RatingNr < fixedIndex && RatingNr < fixedIndex + 1.0){
+            if (calculatedRating < fixedIndex && calculatedRating < fixedIndex + 1.0){
                 return <FaRegStar/>
             }
-
-
             return <FaRegStar/>
         }
 

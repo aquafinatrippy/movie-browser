@@ -11,9 +11,10 @@ type movieDetails = {
     poster_path?: string,
     backdrop_path?: string,
     videos?: {
-        results: [
+        results: [{
             id: string,
             key: string
+        }
         ]
     }
 }
@@ -41,7 +42,8 @@ export interface Movies {
     movies: movie[],
     genres: genre[],
     movieDetails: movieDetails,
-    currentLocation: string
+    currentLocation: string,
+    detailsDisplay: boolean
 }
 
 export type NavigationSliceState = {

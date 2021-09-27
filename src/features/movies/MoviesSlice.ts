@@ -9,7 +9,8 @@ const initialState: Movies = {
     movies: [],
     genres: [],
     movieDetails: {},
-    currentLocation: "Popular"
+    currentLocation: "Popular",
+    detailsDisplay: false
 };
 
 export const getMoviesByGenre = createAsyncThunk(
@@ -67,6 +68,7 @@ export const moviesSlice = createSlice({
             state.isFetching = false
             state.movies = payload.data.results
             state.currentLocation = "Popular"
+            state.detailsDisplay = false
         },
         [getMoviesPopular.rejected.type]: (state) => {
             state.isFetching = true
@@ -97,6 +99,7 @@ export const moviesSlice = createSlice({
             state.currentLocation = payload.location
             state.isFetching = false
             state.movies = payload.data.data.results
+            state.detailsDisplay = false
         },
         [getMovieDetails.rejected.type]: (state) => {
             state.error = "error occured"
@@ -104,10 +107,12 @@ export const moviesSlice = createSlice({
         [getMovieDetails.fulfilled.type]: (state, {payload}) => {
             state.isFetching = false
             state.movieDetails = payload.data
+            state.detailsDisplay = true
         },
         [searchMovies.fulfilled.type]: (state, {payload}) => {
             state.isFetching = false
             state.movies = payload.data.results
+            state.detailsDisplay = false
             state.currentLocation = ""
         },
         [searchMovies.rejected.type]: (state) => {

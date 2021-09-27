@@ -1,6 +1,9 @@
 .header{
   background-color: #3b5bdb;
   .header--top{
+    @media only screen and (max-width: 600px){
+      justify-content: center;
+    }
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -8,6 +11,7 @@
     margin: 0 auto;
     align-items: center;
     width: 80%;
+    flex-wrap: wrap;
   }
   .header--title{
     h1{

@@ -4,6 +4,7 @@ import {RootState} from "../../app/store";
 import './moviedetails.scss'
 import {Loading} from "../Loading";
 import {Rating} from "../Rating";
+import {FaPlayCircle} from "react-icons/fa";
 
 export const MovieDetails: FC = () => {
     const movieDetails = useSelector((state: RootState) => {
@@ -12,7 +13,7 @@ export const MovieDetails: FC = () => {
 
     const calculateRating = (rating: number | undefined) => {
         if (rating) {
-            const fixed = parseInt(rating.toFixed()) / 2;
+            const fixed = parseInt(rating.toFixed());
             return fixed.toString()
         }
     }
@@ -34,10 +35,14 @@ export const MovieDetails: FC = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="movie--trailer">
+                        <div className="movie--trailer" onClick={() => window.open(`https://www.youtube.com/watch?v=${movieDetails?.videos?.results[0]?.key}`, '_blank')}>
 
                             <img alt={movieDetails?.title}
                                  src={`https://image.tmdb.org/t/p/w500/${movieDetails?.backdrop_path}`}/>
+                                 <div className="fade"/>
+                            <div className="hover--play-btn">
+                                <FaPlayCircle/>
+                            </div>
                         </div>
                     </>
                 )}
