@@ -36,7 +36,8 @@ export const MoviesList: FC = () => {
                 <div className="movies--list">
                     {
                         loading ? (
-                            <Loading/>
+                                 <Loading height={"80vh"}/>
+
                         ) : (
                             movies?.map((movie, index) =>
                                 (

@@ -22,7 +22,7 @@ export const MovieDetails: FC = () => {
     return (
         <div className="movie--details">
             <div className="movie--content">
-                {Object.keys(movieDetails).length === 0 ? (<Loading/>) : (
+                {Object.keys(movieDetails).length === 0 ? (<Loading/> ) : (
                     <>
                         <div className="move--info">
                             <h1>{movieDetails?.title}</h1>

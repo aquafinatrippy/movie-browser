@@ -16,45 +16,64 @@ const initialState: Movies = {
 export const getMoviesByGenre = createAsyncThunk(
     'movies/getMoviesByGenre',
     async ({id, name}: genre, thunkAPI) => {
+        try {
         const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=e90e5900c785cc9c251518d316e79f31&with_genres=${id}`)
         if (res.status === 200) return {data: res, location: name}
-        return thunkAPI.rejectWithValue(res)
+        }catch (e) {
+        return thunkAPI.rejectWithValue(e.response.data)
+
+        }
     }
 )
 
 export const getMovieDetails = createAsyncThunk(
     'movies/getMovieDetails',
     async ({id, name}: genre, thunkAPI) => {
+        try {
         const res = await axios.get(`http://api.themoviedb.org/3/movie/${id}?api_key=e90e5900c785cc9c251518d316e79f31&append_to_response=videos`)
         if (res.status === 200) return res
-        return thunkAPI.rejectWithValue(res)
+        }catch (e) {
+        return thunkAPI.rejectWithValue(e.response.data)
+
+        }
     }
 )
 
 export const searchMovies = createAsyncThunk(
     'movies/searchMovies',
     async ({name}: { name: string }, thunkAPI) => {
-        const res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=e90e5900c785cc9c251518d316e79f31&language=en-US&query=${name}&page=1`)
-        if (res.status === 200) return res
-        return thunkAPI.rejectWithValue(res)
+        try {
+            const res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=e90e5900c785cc9c251518d316e79f31&language=en-US&query=${name}&page=1`)
+            if (res.status === 200) return res
+        }catch (e) {
+            return thunkAPI.rejectWithValue(e.response.data)
+        }
     }
 )
 
 export const getMoviesPopular = createAsyncThunk(
     'movies/getMoviesPopular',
     async (arg: void, thunkAPI) => {
-        const res = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=e90e5900c785cc9c251518d316e79f31")
-        if (res.status === 200) return res
-        return thunkAPI.rejectWithValue(res)
+        try {
+            const res = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=e90e5900c785cc9c251518d316e79f31")
+            if (res.status === 200) return res
+        }catch (e) {
+            return thunkAPI.rejectWithValue(e.response.data)
+        }
+
+
     }
 )
 
 export const getGenres = createAsyncThunk(
     'movies/getGenres',
     async (arg: void, thunkAPI) => {
-        const res = await axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=e90e5900c785cc9c251518d316e79f31")
-        if (res.status === 200) return res
-        return thunkAPI.rejectWithValue(res)
+        try {
+            const res = await axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=e90e5900c785cc9c251518d316e79f31")
+            if (res.status === 200) return res
+        }catch (e){
+            return thunkAPI.rejectWithValue(e.response.data)
+        }
     }
 )
 
@@ -70,9 +89,9 @@ export const moviesSlice = createSlice({
             state.currentLocation = "Popular"
             state.detailsDisplay = false
         },
-        [getMoviesPopular.rejected.type]: (state) => {
+        [getMoviesPopular.rejected.type]: (state, {payload}) => {
             state.isFetching = true
-            state.error = "Error "
+            state.error = payload.status_message
         },
         [getMoviesPopular.pending.type]: (state) => {
             state.isFetching = true
@@ -85,15 +104,15 @@ export const moviesSlice = createSlice({
             state.genres = payload.data.genres
             state.error = ''
         },
-        [getGenres.rejected.type]: (state) => {
+        [getGenres.rejected.type]: (state, {payload}) => {
             state.isFetching = true
-            state.error = "Error "
+            state.error = payload.status_message
         },
         [getMoviesByGenre.pending.type]: (state) => {
             state.isFetching = true
         },
-        [getMoviesByGenre.rejected.type]: (state) => {
-            state.error = "error occured"
+        [getMoviesByGenre.rejected.type]: (state, {payload}) => {
+            state.error = payload.status_message
         },
         [getMoviesByGenre.fulfilled.type]: (state, {payload}) => {
             state.currentLocation = payload.location
@@ -101,8 +120,8 @@ export const moviesSlice = createSlice({
             state.movies = payload.data.data.results
             state.detailsDisplay = false
         },
-        [getMovieDetails.rejected.type]: (state) => {
-            state.error = "error occured"
+        [getMovieDetails.rejected.type]: (state, {payload}) => {
+            state.error = payload.status_message
         },
         [getMovieDetails.fulfilled.type]: (state, {payload}) => {
             state.isFetching = false
@@ -115,9 +134,9 @@ export const moviesSlice = createSlice({
             state.detailsDisplay = false
             state.currentLocation = ""
         },
-        [searchMovies.rejected.type]: (state) => {
+        [searchMovies.rejected.type]: (state, {payload}) => {
             state.isFetching = true
-            state.error = "Error "
+            state.error = payload.status_message
         },
         [searchMovies.pending.type]: (state) => {
             state.isFetching = true
