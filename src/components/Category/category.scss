@@ -5,12 +5,15 @@
   .category--list {
     display: flex;
     padding: 10px 0 20px 0;
+    .active{
+      color: #fff !important;
+    }
     .category--list--item {
-      padding: 5px;
+      padding-right: 10px;
       cursor: pointer;
-
+      color: #74c0fc;
       &:hover {
-        color: #748ffc;
+        color: #fff;
       }
     }
   }
@@ -30,6 +33,9 @@
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+}
+.dropdown-active {
+  background-color: #74c0fc;
 }
 
 .dropdown-content a {

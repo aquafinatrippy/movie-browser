@@ -9,6 +9,7 @@ type movieDetails = {
     genres?: genre[],
     overview?: string,
     poster_path?: string,
+    backdrop_path?: string,
     videos?: {
         results: [
             id: string,
@@ -39,5 +40,10 @@ export interface Movies {
     error:  string | null,
     movies: movie[],
     genres: genre[],
-    movieDetails: movieDetails
+    movieDetails: movieDetails,
+    currentLocation: string
+}
+
+export type NavigationSliceState = {
+    location:string
 }

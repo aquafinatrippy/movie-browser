@@ -1,8 +1,37 @@
 .movie--details{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  max-width: 1440px;
-  width: 80%;
-  margin: 0 auto;
+  border-bottom: 2px solid gray;
+  border-top: 2px solid gray;
+  background-color: black;
+
+
+  .movie--content{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    flex-direction: row;
+    justify-content: center;
+    max-width: 1440px;
+    width: 80%;
+    margin: 0 auto;
+
+  }
+  .movie--trailer{
+    position: relative;
+    height: 300px;
+    img{
+      position: absolute;
+      object-fit: cover;
+      height: 100%;
+      left: 0;
+      width: 100%;
+    }
+  }
+  .move--info{
+    text-align: left;
+    h1{
+      padding-top: 30px;
+    }
+    .movie--genres{
+      padding-bottom: 30px;
+    }
+  }
 }
